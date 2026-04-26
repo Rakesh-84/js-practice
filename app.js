@@ -1,21 +1,24 @@
-const clients = [
-  { name: "Visible.vc",   plan: "pro",   mrr: 299, churnRisk: false },
-  { name: "DashLX",      plan: "basic", mrr: 99, churnRisk: true },
-  { name: "FlowMetrics", plan: "pro",   mrr: 299, churnRisk: false },
-  { name: "ReportHQ",   plan: "basic", mrr: 99, churnRisk: false },
-  { name: "DataPilot",  plan: "pro",   mrr: 499, churnRisk: true },
-];
+async function getUserID(userid) {
+  if (typeof userid !== "number"){
+    throw new Error ("user id must be a number")
 
-
-
-
-const mrrByPlan = clients.reduce((acc, client) => {
-  if (acc[client.plan]) {
-    acc[client.plan] = acc[client.plan] + client.mrr;
-  } else {
-    acc[client.plan] = client.mrr;
   }
-  return acc;
-}, {});
+try {
+  const response = await fetch (`https://jsonplaceholder.typicode.com/users/${userId}`)
 
-console.log(mrrByPlan);
+  if (!response.ok){
+    throw new Error ("server error" + response.status)
+  }
+  const data = await response.json()
+  console.log (data)
+
+} catch (error) {
+  console.log ("something went wrong", error.message)
+}
+
+
+finally {console.log ("fetch complete")}
+
+
+}
+
