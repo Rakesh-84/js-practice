@@ -1,16 +1,11 @@
-function fetchUserStats() {
-  return
-  new Promise(resolve, reject) =>{
-    setTimeout(() =>
-    resolve("state uploaded"),1000)
-  }
-.then(() => {
-    console.log("state uploaded")
-  })
-    .catch((error) => {
-    console.error("Error fetching user stats:", error)
-  })
-  .finally(() => {
-    console.log("fetching user stats complete")
-  })
+async function loadProfile() {
+  const getUserID = (token) => {
+    return new Promise((resolve) => {
+      resolve fetch profile("api/user/profile");
+      .then fetch (json)
+      .then((Profile) => {
+        console.log(profile);
+      });
+    });
+  };
 }
