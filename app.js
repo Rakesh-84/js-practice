@@ -1,11 +1,9 @@
-async function loadProfile() {
-  const getUserID = (token) => {
-    return new Promise((resolve) => {
-      resolve fetch profile("api/user/profile");
-      .then fetch (json)
-      .then((Profile) => {
-        console.log(profile);
-      });
-    });
-  };
+function getUserID(token) {
+  if (token === "valid-token") {
+    return function userProfile() {
+      const profile = fetch ('/api/profile')
+        .then(res => res.json());
+      return profile;
+    }
+  }
 }
