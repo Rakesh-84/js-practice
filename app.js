@@ -28,3 +28,21 @@ async function showDashboards() {
   console.log(dashboards);
   console.log(user.name)
 }
+
+
+function getUser() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => reject("User not found"), 1000);
+  });
+}
+
+async function showUser() {
+  try {
+    const user = await getUser();
+
+
+    
+  } catch (error) {
+    console.error(error);
+  }
+}
