@@ -1,48 +1,44 @@
+const Data = {
+  user: "Rex",
+  revenue: 5000,
+  alert: "High",
+};
 
 function getUser() {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({ name: "Rex", company: "KleanDash" });
+      resolve(Data.user);
     }, 1000);
   });
 }
 
-// Your task:
-// Write an async function called showUser
-// Use await to get the user from getUser()
-// Then console.log the user's name
-async function showUser() {
-  const user = await getUser();
-  console.log(user.name);
-}
-
-function getDashboards(company) {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(["BizDash", "SalesDev", "OmniTask"]), 1000);
-  });
-}
-
-async function showDashboards() {
-  const user = await getUser();
-  const dashboards = await getDashboards(user.company);
-  console.log(dashboards);
-  console.log(user.name)
-}
-
-
-function getUser() {
+function getRevenue() {
   return new Promise((resolve, reject) => {
-    setTimeout(() => reject("User not found"), 1000);
+    setTimeout(() => {
+      reject("Failed to fetch revenue data");
+    }, 2000);
   });
 }
 
-async function showUser() {
-  try {
-    const user = await getUser();
-
-
-    
-  } catch (error) {
-    console.error(error);
-  }
+function getAlert() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(Data.alert);
+    }, 1500);
+  });
 }
+
+async function loadKleanDashboard() {
+  const allResults = await Promise.allSettled([
+    getUser(),
+    getRevenue(),
+    getAlert(),
+  ])
+    const results = allResults
+    .filter((result) => result.status === "fulfilled")
+    .map((result) => result.value);
+
+  console.log("Klean Dashboard loaded with data:", results);
+  return results;
+}
+loadKleanDashboard();
