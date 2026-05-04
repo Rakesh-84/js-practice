@@ -1,44 +1,18 @@
-const Data = {
-  user: "Rex",
-  revenue: 5000,
-  alert: "High",
-};
-
-function getUser() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(Data.user);
-    }, 1000);
-  });
+async function refresh() {
+  {setLoading(true);
+  try {
+    const data = await fetch("/api/refresh");
+    if (data.ok) {
+      console.log("Refreshed");
+    } else {
+      console.error("Failed to refresh:", data.statusText);
+    }
+  } catch (error) {
+    console.error("Error occurred while refreshing:", error);
+  }
 }
-
-function getRevenue() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      reject("Failed to fetch revenue data");
-    }, 2000);
-  });
+  finally {
+    setLoading(false);
+    console.log("Finished refresh");
 }
-
-function getAlert() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(Data.alert);
-    }, 1500);
-  });
 }
-
-async function loadKleanDashboard() {
-  const allResults = await Promise.allSettled([
-    getUser(),
-    getRevenue(),
-    getAlert(),
-  ])
-    const results = allResults
-    .filter((result) => result.status === "fulfilled")
-    .map((result) => result.value);
-
-  console.log("Klean Dashboard loaded with data:", results);
-  return results;
-}
-loadKleanDashboard();
